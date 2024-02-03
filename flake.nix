@@ -17,8 +17,8 @@
             nodePackages.npm
             nodePackages.degit
           ];
-          # Automatically run ??? when entering the shell.
-          #shellHook = "???";
+          # Automatically startup dev env when entering the shell.
+          shellHook = "cd corvette && npm install && npm run dev";
         };
       });
 }
