@@ -1,10 +1,6 @@
 <script>
 import { lnsocket_init } from '../js/lnsocket.js';
 
-//const NODE_ID = "02cca6c5c966fcf61d121e3a70e03a1cd9eeeea024b26ea666ce974d43b242e636";
-//const WEBSOCKET_ADDR = "ws://45.55.129.100:9999";
-//const RUNE = "rz7_2oyBbTsu-aOeU2-2QOu3J-ToskWKTB0HN66NLBo9MjUmbWV0aG9kXmxpc3R8bWV0aG9kXmdldHxtZXRob2Q9c3VtbWFyeSZtZXRob2QvbGlzdGRhdGFzdG9yZQ==";
-
 let rune = "";
 let node_id = "";
 let connectstr = "";
@@ -30,7 +26,7 @@ async function getinfo() {
     return await make_request("getinfo", rune, {});
 }
 
-let promise = getinfo();
+let promise = "";
 
 function handleClick() {
     promise = getinfo();
@@ -50,10 +46,14 @@ function handleClick() {
         Get Info!
     </button>
 
-{#await promise}
-    <p> loading infos </p>
-{:then infos}
-    <p>node infos: {infos.result.id}</p>
-{:catch error}
-    <p style="color: red">{error}</p>
-{/await}
+{#if rune && node_id && connectstr}
+    {#await promise}
+        <p> loading infos </p>
+    {:then infos}
+        <p>node infos: {infos.result.id}</p>
+    {:catch error}
+        <p style="color: red">{error}</p>
+    {/await}
+{:else}
+    <p>Fill in your node connection details + a rune to get started</p>
+{/if}
